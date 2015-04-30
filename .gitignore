@@ -10,7 +10,8 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
-<<<<<<< HEAD
+
+# android studio
 .gradle
 /local.properties
 /.idea/workspace.xml
@@ -18,5 +19,3 @@ hs_err_pid*
 .DS_Store
 /build
 
-=======
->>>>>>> 1859d24501e7a81fb712b9fa2168d53ed916549a
