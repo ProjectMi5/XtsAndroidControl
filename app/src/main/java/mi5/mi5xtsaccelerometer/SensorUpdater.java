@@ -18,6 +18,7 @@ public class SensorUpdater implements SensorEventListener {
     private boolean m_initialized;
     private SensorManager m_sensorManager;
     private Sensor m_accelerometer;
+    private OpcUaUpdater m_opcuaUpdater;
 
     // Filter out noise.
     private final float NOISE = (float) 0.01;
@@ -30,6 +31,9 @@ public class SensorUpdater implements SensorEventListener {
         m_sensorManager = (SensorManager) m_context.getSystemService(Context.SENSOR_SERVICE);
         m_accelerometer = m_sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         m_sensorManager.registerListener(this, m_accelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        m_opcuaUpdater = new OpcUaUpdater("opc.tcp://192.168.192.52:48010");
+        m_opcuaUpdater.execute(new String[] {});
     }
 
     public void notifyResume()
@@ -79,6 +83,7 @@ public class SensorUpdater implements SensorEventListener {
             if (deltaZ < NOISE)
                 z = (float) 0.0;
         }
-        m_activity.updateDisplay(x, y, z);
+        m_activity.updateDisplay(x,y,z);
+        m_opcuaUpdater.updateValues(x,y,z);
     }
 }
